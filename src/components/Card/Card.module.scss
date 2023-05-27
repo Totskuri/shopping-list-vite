@@ -1,0 +1,20 @@
+@import '../../variables';
+
+.card {
+    border-radius: 0.25rem;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    background-color: $lightGray;
+    box-shadow: $boxShadow;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    :global {
+        a {
+            color: black;
+            text-decoration: none;
+        }
+    }
+}

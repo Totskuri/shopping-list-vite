@@ -1,0 +1,21 @@
+@import '../../variables';
+
+.bar {
+    height: $topBarHeight;
+    border-bottom: 1px solid $dark;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+        margin: 0;
+        padding-left: 10px;
+        font-size: 30px;
+    }
+}
+
+.back {
+    padding-right: 1rem;
+    color: black;
+}
