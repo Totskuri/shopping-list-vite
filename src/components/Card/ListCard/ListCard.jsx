@@ -2,39 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card.jsx';
 import IconButton from "../../Button/IconButton.jsx";
-import {Check, Edit, Trash2, X} from "react-feather";
-import TitleInput from "../../Input/TitleInput.jsx";
+import {Edit, Trash2} from "react-feather";
 import Flex from "../../Flex/Flex.jsx";
+import {Link} from "react-router-dom";
 import Routes from "../../../constants/routes.js";
+import styles from './ListCard.module.scss';
+import {Gap} from "tyylisivu-components";
+import {LIST_PROPS} from "../../../supabase/models/list.js";
 
-const ListCard = ({list, isEditMode, toggleEditMode, onChangeValue, onDelete}) => {
+const ListCard = ({list, isEditMode, toggleEditMode, onDelete}) => {
     return (
         <Card>
             <Flex justifyContent="space-between" alignItems="center">
-                <TitleInput
-                    value={list.title}
-                    isEditMode={isEditMode}
-                    onChange={onChangeValue}
+                <Link
                     to={Routes.LIST_EDIT.replace(':id', list.id)}
-                    autoFocus
-                />
-                <Flex>
+                    className={styles.link}
+                >
+                    {list.title}
+                </Link>
+                <Flex alignItems="center">
                     <IconButton
                         onClick={() => toggleEditMode(true)}
+                        disabled={isEditMode}
                     >
-                        {!isEditMode ? <Edit /> : <Check color="#28a745" />}
+                        <Edit />
                     </IconButton>
                     <IconButton
                         onClick={() => {
-                            if (isEditMode) {
-                                toggleEditMode();
-                            } else if (window.confirm(`Delete item ${list.title}?`)) {
+                            if (window.confirm(`Delete item ${list.title}?`)) {
                                 onDelete();
                             }
                         }}
+                        disabled={isEditMode}
                     >
-                        {!isEditMode ? <Trash2 /> : <X color="#dc3545" />}
+                        <Trash2 />
                     </IconButton>
+                    <Gap />
                 </Flex>
             </Flex>
         </Card>
@@ -42,13 +45,9 @@ const ListCard = ({list, isEditMode, toggleEditMode, onChangeValue, onDelete}) =
 };
 
 ListCard.propTypes = {
-    list: PropTypes.shape({
-        id: PropTypes.string,
-        title: PropTypes.string,
-    }),
+    list: LIST_PROPS,
     isEditMode: PropTypes.bool,
     toggleEditMode: PropTypes.func.isRequired,
-    onChangeValue: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
 };
 

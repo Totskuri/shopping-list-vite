@@ -8,7 +8,7 @@ const ConfirmButton = ({onClick, disabled, isLoading}) => {
     return (
         <Button
             onClick={(e) => onClick(e)}
-            disabled={disabled}
+            disabled={disabled || isLoading}
         >
             {isLoading && (
                 <Spinner />

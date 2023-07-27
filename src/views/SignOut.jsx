@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import DefaultLayout from './layouts/DefaultLayout';
+import DefaultLayout from '../layouts/DefaultLayout';
 import Padding from '../components/Padding/Padding';
 import User from '../supabase/models/user';
 import {useNavigate} from 'react-router-dom';

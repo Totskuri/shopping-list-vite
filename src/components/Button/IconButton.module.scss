@@ -1,0 +1,10 @@
+.button {
+    --ts-button-padding: 10px;
+    --ts-button-bg-color-disabled: transparent;
+    --ts-button-text-color-disabled: #6c757d;
+}
+
+.button:hover {
+    background: #ececec !important;
+    border-radius: 50%;
+}

@@ -2,53 +2,46 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card.jsx';
 import {Checkbox} from 'tyylisivu-components';
-import {ITEM_STATUS_CHECKED} from "../../../supabase/models/item.js";
+import {ITEM_PROPS, ITEM_STATUS_CHECKED} from "../../../supabase/models/item.js";
 import styles from './ItemCard.module.scss';
 import IconButton from "../../Button/IconButton.jsx";
-import {Check, Edit, Trash2, X} from "react-feather";
-import TitleInput from "../../Input/TitleInput.jsx";
-import CounterInput from "../../Input/CounterInput.jsx";
+import {Edit, Trash2} from "react-feather";
 import Flex from "../../Flex/Flex.jsx";
 
-const ItemCard = ({item, isEditMode, toggleEditMode, onChangeValue, onDelete}) => {
+const ItemCard = ({item, isEditMode, toggleEditMode, onChangeStatus, onDelete}) => {
     return (
         <Card>
-            <Flex>
-                <label className={styles.checkboxContainer}>
-                    <Checkbox
-                        className={styles.checkbox}
-                        checked={item.status === ITEM_STATUS_CHECKED}
-                        onChange={(val) => onChangeValue('status', val)}
-                    />
+            <Flex alignItems="center">
+                <label>
+                    <div className={styles.checkboxContainer}>
+                        <Checkbox
+                            className={styles.checkbox}
+                            checked={item.status === ITEM_STATUS_CHECKED}
+                            onChange={(val) => onChangeStatus(val)}
+                        />
+                    </div>
                 </label>
                 <div className={styles.content}>
-                    <TitleInput
-                        value={item.title}
-                        isEditMode={isEditMode}
-                        onChange={(val) => onChangeValue('title', val)}
-                        autoFocus
-                    />
+                    <span className={styles.title}>{item.title}</span>
                     <Flex alignItems="center">
-                        <CounterInput
-                            value={item.total}
-                            isEditMode={isEditMode}
-                            onChange={(val) => onChangeValue('total', val)}
-                        />
+                        <span className={styles.title}>
+                            {item.total}
+                        </span>
                         <IconButton
                             onClick={() => toggleEditMode(true)}
+                            disabled={isEditMode}
                         >
-                            {!isEditMode ? <Edit /> : <Check color="#28a745" />}
+                            <Edit />
                         </IconButton>
                         <IconButton
                             onClick={() => {
-                                if (isEditMode) {
-                                    toggleEditMode();
-                                } else if (window.confirm(`Delete item ${item.title}?`)) {
+                                if (window.confirm(`Delete item ${item.title}?`)) {
                                     onDelete();
                                 }
                             }}
+                            disabled={isEditMode}
                         >
-                            {!isEditMode ? <Trash2 /> : <X color="#dc3545" />}
+                            <Trash2 />
                         </IconButton>
                     </Flex>
                 </div>
@@ -58,15 +51,10 @@ const ItemCard = ({item, isEditMode, toggleEditMode, onChangeValue, onDelete}) =
 };
 
 ItemCard.propTypes = {
-    item: PropTypes.shape({
-        id: PropTypes.string,
-        title: PropTypes.string,
-        total: PropTypes.number,
-        status: PropTypes.string,
-    }),
+    item: ITEM_PROPS,
     isEditMode: PropTypes.bool,
     toggleEditMode: PropTypes.func.isRequired,
-    onChangeValue: PropTypes.func.isRequired,
+    onChangeStatus: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
 };
 

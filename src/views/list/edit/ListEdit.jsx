@@ -1,23 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import DefaultLayout from '../../layouts/DefaultLayout';
-import {useNavigate, useParams} from 'react-router-dom';
+import DefaultLayout from '../../../layouts/DefaultLayout';
+import {useParams} from 'react-router-dom';
 import Item, {ITEM_STATUS_CHECKED, ITEM_STATUS_UNCHECKED} from '../../../supabase/models/item';
 import List from '../../../supabase/models/list';
 import ListEditTitleBar from './ListEditTitleBar';
 import CreateButton from '../../../components/Button/CreateButton';
-import Routes from '../../../constants/routes';
 import Position from '../../../components/Position/Position';
-import NotFound from '../../layouts/NotFound';
+import NotFound from '../../../layouts/NotFound';
 import ItemCard from '../../../components/Card/ItemCard/ItemCard.jsx';
 import CardList from '../../../components/Card/CardList';
 import DataUtil from '../../../utils/DataUtil';
-import Placeholder from "../../layouts/Placeholder.jsx";
+import Placeholder from "../../../layouts/Placeholder.jsx";
 import StateUtil from "../../../utils/StateUtil.js";
 import SortUtil from "../../../utils/SortUtil.js";
+import ItemEditDrawer from "../../../components/Drawer/ItemEditDrawer.jsx";
 
 const ListEdit = () => {
     const {id} = useParams();
-    const navigate = useNavigate();
     const [isInitializing, setIsInitializing] = useState(true);
     const [list, setList] = useState({});
     const [items, setItems] = useState(null);
@@ -33,34 +32,16 @@ const ListEdit = () => {
         }).finally(() => setIsInitializing(false));
     };
 
-    const updateStateWithNewItem = (itemId, data) => {
-        const newItems = StateUtil.updateArrayItemById(itemId, items, data[0]);
+    const updateStateWithItemId = (itemId, data) => {
+        const newItems = StateUtil.updateArrayItemById(itemId, items, data);
         setItems(SortUtil.sortItemsForList(newItems));
     };
 
-    const updateItemStatus = (itemId, status) => {
+    const updateItemStatus = (itemId, val) => {
+        const status = val ? ITEM_STATUS_CHECKED : ITEM_STATUS_UNCHECKED;
         Item.updateById(itemId, {status}).then((data) => {
             if (data.length === 1) {
-                updateStateWithNewItem(itemId, data);
-            }
-        });
-    };
-
-    const cancelEditMode = () => {
-        setEditItem(null);
-    };
-
-    const handleItemAfterEdit = (item, update) => {
-        const {id, title, total} = editItem;
-        // Only update if data changed and user wants to save
-        if (!update || item.title === title && item.total === total) {
-            cancelEditMode();
-            return;
-        }
-        Item.updateById(id, {title, total}).then((data) => {
-            if (data.length === 1) {
-                updateStateWithNewItem(id, data);
-                cancelEditMode();
+                updateStateWithItemId(itemId, data[0]);
             }
         });
     };
@@ -71,32 +52,6 @@ const ListEdit = () => {
                 setItems(StateUtil.removeFromArrayById(itemId, items));
             }
         });
-    };
-
-    const onChangeValue = (itemId, key, value) => {
-        switch (key) {
-            case 'status':
-                updateItemStatus(
-                    itemId,
-                    value ? ITEM_STATUS_CHECKED : ITEM_STATUS_UNCHECKED
-                )
-                break;
-            default:
-                setEditItem(StateUtil.produceObject(editItem, key, value));
-                break;
-        }
-    };
-
-    const itemBeingEdited = (itemId) => {
-        return editItem?.id === itemId;
-    };
-
-    const toggleEditMode = (item, update) => {
-        if (itemBeingEdited(item.id)) {
-            handleItemAfterEdit(item, update);
-        } else {
-            setEditItem(item);
-        }
     };
 
     useEffect(() => {
@@ -116,16 +71,14 @@ const ListEdit = () => {
             {!isInitializing && (
                 <CardList>
                     {items.map((item) => {
-                        const isEditMode = itemBeingEdited(item.id);
-                        const itemToEdit = isEditMode ? editItem : item;
                         return (
                             <ItemCard
                                 key={item.id}
-                                item={itemToEdit}
-                                isEditMode={isEditMode}
-                                toggleEditMode={(update) => toggleEditMode(item, update)}
-                                onChangeValue={(key, value) => onChangeValue(item.id, key, value)}
+                                item={item}
+                                isEditMode={item.id === editItem?.id}
+                                toggleEditMode={() => setEditItem(item)}
                                 onDelete={() => deleteItem(item.id)}
+                                onChangeStatus={(val) => updateItemStatus(item.id, val)}
                             />
                         );
                     })}
@@ -137,9 +90,22 @@ const ListEdit = () => {
             >
                 <CreateButton
                     text="Add items"
-                    onClick={() => navigate(Routes.ITEM_ADD.replace(':listId', id))}
+                    onClick={() => setEditItem(Item.getEmptyItem(list.id))}
                 />
             </Position>
+            <ItemEditDrawer
+                item={editItem}
+                onChange={(data) => {
+                    const found = items.find((item) => item.id === data?.id);
+                    if (found) {
+                        updateStateWithItemId(data?.id, data);
+                    } else {
+                        const newItems = StateUtil.addToArrayByIndex(items, data);
+                        setItems(SortUtil.sortItemsForList(newItems));
+                    }
+                }}
+                handleClose={() => setEditItem(null)}
+            />
         </DefaultLayout>
     );
 };

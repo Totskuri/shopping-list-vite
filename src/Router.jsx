@@ -3,9 +3,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import routes from './constants/routes';
 import Index from './views/Index';
 import SignOut from './views/SignOut';
-import ListCreate from './views/list/create/ListCreate';
 import ListEdit from './views/list/edit/ListEdit';
-import ItemAdd from './views/item/add/ItemAdd';
 
 const Router = () => {
     return (
@@ -20,16 +18,8 @@ const Router = () => {
                     element={<SignOut />}
                 />
                 <Route
-                    exact path={routes.LIST_CREATE}
-                    element={<ListCreate />}
-                />
-                <Route
                     exact path={routes.LIST_EDIT}
                     element={<ListEdit />}
-                />
-                <Route
-                    exact path={routes.ITEM_ADD}
-                    element={<ItemAdd />}
                 />
             </Routes>
         </BrowserRouter>

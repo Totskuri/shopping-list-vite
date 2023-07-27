@@ -1,6 +1,6 @@
 import React from 'react';
-import DefaultLayout from './DefaultLayout';
-import Padding from '../../components/Padding/Padding';
+import DefaultLayout from './DefaultLayout.jsx';
+import Padding from '../components/Padding/Padding.jsx';
 import PropTypes from 'prop-types';
 
 const NotFound = ({text}) => {

@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './DefaultLayout.module.scss';
-import ToastUtil from '../../utils/ToastUtil';
-import {Container} from "tyylisivu-components";
+import ToastUtil from '../utils/ToastUtil.jsx';
 
 const DefaultLayout = ({children, center}) => {
     return (
-        <Container className={center ? styles.centerLayout : styles.defaultLayout}>
+        <div className={center ? styles.centerLayout : styles.defaultLayout}>
             {children}
             {ToastUtil.getToaster()}
-        </Container>
+        </div>
     );
 };
 

@@ -1,0 +1,10 @@
+@import '../../variables';
+
+.input {
+    --ts-input-border: 1px solid #ced4da;
+    background-color: white;
+
+    &:focus {
+        outline: 1px solid #80bdff;
+    }
+}

@@ -7,7 +7,7 @@ export default class StateUtil {
         });
     }
 
-    static addToArrayByIndex(array, value, index) {
+    static addToArrayByIndex(array, value, index = 0) {
         return produce(array, (draft) => {
             draft.splice(index, 0, value);
         });

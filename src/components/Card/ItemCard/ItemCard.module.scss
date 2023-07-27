@@ -1,9 +1,12 @@
+@import '../../../variables';
+
 .checkboxContainer {
-    padding: 15px;
-    margin-right: 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
+    width: 35px;
+    height: 35px;
 }
 
 .checkboxContainer:hover {
@@ -19,7 +22,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: calc(100% - 35px);
+}
+
+.title {
+    padding: $cardPadding;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .total {

@@ -1,10 +1,27 @@
 import ApiCall from '../apiCall';
+import PropTypes from "prop-types";
 
 export const ITEM_STATUS_UNCHECKED = 'UNCHECKED';
 export const ITEM_STATUS_CHECKED = 'CHECKED';
-export const ITEM_SELECT_COLUMNS = 'id, title, status, total';
+export const ITEM_SELECT_COLUMNS = 'id, list_id, title, status, total';
+export const ITEM_PROPS = PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    total: PropTypes.number,
+    status: PropTypes.string,
+});
 
 export default class Item {
+    static getEmptyItem(listId) {
+        return {
+            id: null,
+            list_id: listId,
+            title: '',
+            total: 0,
+            status: ITEM_STATUS_UNCHECKED,
+        };
+    }
+
     static select(listId) {
         return ApiCall.selectByColumn(
             'items',
@@ -14,8 +31,8 @@ export default class Item {
             'created_at');
     }
 
-    static bulkInsert(items) {
-        return ApiCall.insert('items', items, ITEM_SELECT_COLUMNS);
+    static insert(insert) {
+        return ApiCall.insert('items', insert, ITEM_SELECT_COLUMNS);
     }
 
     static updateById(id, update) {
@@ -24,6 +41,21 @@ export default class Item {
 
     static deleteById(id) {
         return ApiCall.deleteById('items', id);
+    }
+
+    static insertOrUpdateById(id, data) {
+        if (id) {
+            return this.updateById(id, {
+                title: data.title,
+                total: data.total
+            });
+        }
+        return this.insert({
+            list_id: data.list_id,
+            title: data.title,
+            total: data.total,
+            status: data.status
+        });
     }
 };
 

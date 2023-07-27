@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from './NavAndSearch.module.scss';
 import IconButton from '../Button/IconButton';
-import {Menu} from 'react-feather';
+import {Menu, Search} from 'react-feather';
 import {Link} from 'react-router-dom';
 import Routes from '../../constants/routes';
 import PropTypes from 'prop-types';
@@ -17,12 +17,17 @@ const NavAndSearch = ({searchValue, searchOnChange}) => {
             >
                 <Menu />
             </IconButton>
-            <TextInput
-                placeholder="Search..."
-                className={styles.search}
-                value={searchValue}
-                onChange={searchOnChange}
-            />
+            <div className={styles.search}>
+                <div className={styles.searchIcon}>
+                    <Search />
+                </div>
+                <TextInput
+                    placeholder="Search..."
+                    className={styles.searchInput}
+                    value={searchValue}
+                    onChange={searchOnChange}
+                />
+            </div>
             <Drawer
                 isOpen={menuIsOpen}
                 handleClose={() => setMenuIsOpen(false)}

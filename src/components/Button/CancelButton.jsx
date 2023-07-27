@@ -8,6 +8,9 @@ const CancelButton = ({onClick, disabled}) => {
         <Button
             onClick={(e) => onClick(e)}
             disabled={disabled}
+            style={{
+                backgroundColor: 'white',
+            }}
             variant="transparentDark"
         >
             <X />

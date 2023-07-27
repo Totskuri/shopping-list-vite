@@ -3,7 +3,7 @@ import {Auth, ThemeSupa} from '@supabase/auth-ui-react';
 import {supabase} from '../supabase/client';
 import PropTypes from 'prop-types';
 import DataUtil from '../utils/DataUtil';
-import {Container} from 'tyylisivu-components';
+import Padding from "../components/Padding/Padding.jsx";
 
 const Authentication = ({children}) => {
     const [initialized, setInitialized] = useState(false);
@@ -26,15 +26,17 @@ const Authentication = ({children}) => {
 
     if (!initialized || DataUtil.isEmpty(session)) {
         return (
-            <Container>
+            <Padding>
                 {!initialized && (
                     <span>loading...</span>
                 )}
-                {initialized && <Auth
-                    supabaseClient={supabase}
-                    appearance={{theme: ThemeSupa}}
-                />}
-            </Container>
+                {initialized && (
+                    <Auth
+                        supabaseClient={supabase}
+                        appearance={{theme: ThemeSupa}}
+                    />
+                )}
+            </Padding>
         );
     }
 
