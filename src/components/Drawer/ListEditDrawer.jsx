@@ -59,6 +59,7 @@ const ListEditDrawer = ({list, handleClose, onChange}) => {
                         placeholder="Enter title"
                         value={localList?.title || ''}
                         onChange={(val) => setLocalList(StateUtil.produceObject(localList, 'title', val))}
+                        onSubmit={onSave}
                         autoFocus
                     />
                 </Label>

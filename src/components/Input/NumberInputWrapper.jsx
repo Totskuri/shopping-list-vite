@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {NumberInput} from 'tyylisivu-components';
 import styles from './Input.module.scss';
 
-const NumberInputWrapper = ({value, onChange, readOnly, autoFocus, min, max}) => {
+const NumberInputWrapper = ({value, onChange, readOnly, autoFocus, min, max, onSubmit}) => {
 
     return (
         <NumberInput
@@ -14,6 +14,7 @@ const NumberInputWrapper = ({value, onChange, readOnly, autoFocus, min, max}) =>
             autoFocus={autoFocus}
             min={min}
             max={max}
+            onSubmit={onSubmit}
         />
     );
 };
@@ -25,6 +26,7 @@ NumberInputWrapper.propTypes = {
     autoFocus: PropTypes.bool,
     min: PropTypes.number,
     max: PropTypes.number,
+    onSubmit: PropTypes.func,
 };
 
 NumberInputWrapper.defaultProps = {
@@ -33,6 +35,7 @@ NumberInputWrapper.defaultProps = {
     autoFocus: false,
     min: 0,
     max: 32767,
+    onSubmit: () => {},
 };
 
 export default NumberInputWrapper;

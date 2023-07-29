@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 
 export const ITEM_STATUS_UNCHECKED = 'UNCHECKED';
 export const ITEM_STATUS_CHECKED = 'CHECKED';
-export const ITEM_SELECT_COLUMNS = 'id, list_id, title, status, total';
+export const ITEM_SELECT_COLUMNS = 'id, list_id, title, status, total, description';
 export const ITEM_PROPS = PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
     total: PropTypes.number,
     status: PropTypes.string,
+    description: PropTypes.string,
 });
 
 export default class Item {
@@ -19,6 +20,7 @@ export default class Item {
             title: '',
             total: 0,
             status: ITEM_STATUS_UNCHECKED,
+            description: '',
         };
     }
 
@@ -47,14 +49,16 @@ export default class Item {
         if (id) {
             return this.updateById(id, {
                 title: data.title,
-                total: data.total
+                total: data.total,
+                description: data.description
             });
         }
         return this.insert({
             list_id: data.list_id,
             title: data.title,
             total: data.total,
-            status: data.status
+            status: data.status,
+            description: data.description
         });
     }
 };

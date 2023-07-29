@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TextInput} from "tyylisivu-components";
+import {Textarea} from "tyylisivu-components";
 import styles from './Input.module.scss';
 
-const TextInputWrapper = ({placeholder, value, onChange, autoFocus, onSubmit}) => {
+const TextareaWrapper = ({placeholder, value, onChange, autoFocus, onSubmit}) => {
     return (
-        <TextInput
+        <Textarea
             placeholder={placeholder}
             value={value}
             onChange={onChange}
@@ -16,7 +16,7 @@ const TextInputWrapper = ({placeholder, value, onChange, autoFocus, onSubmit}) =
     );
 };
 
-TextInputWrapper.propTypes = {
+TextareaWrapper.propTypes = {
     placeholder: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
@@ -24,11 +24,11 @@ TextInputWrapper.propTypes = {
     onSubmit: PropTypes.func,
 };
 
-TextInputWrapper.defaultProps = {
+TextareaWrapper.defaultProps = {
     placeholder: '',
     value: '',
     autoFocus: false,
     onSubmit: () => {},
 };
 
-export default TextInputWrapper;
+export default TextareaWrapper;

@@ -8,6 +8,7 @@ import TextInputWrapper from "../Input/TextInputWrapper.jsx";
 import ToastUtil from "../../utils/ToastUtil.jsx";
 import Item, {ITEM_PROPS} from "../../supabase/models/item.js";
 import NumberInputWrapper from "../Input/NumberInputWrapper.jsx";
+import TextareaWrapper from "../Input/TextareaWrapper.jsx";
 
 const ItemEditDrawer = ({item, handleClose, onChange}) => {
     const [localItem, setLocalItem] = useState(null);
@@ -60,6 +61,7 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
                             placeholder="Enter title"
                             value={localItem?.title || ''}
                             onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'title', val))}
+                            onSubmit={onSave}
                             autoFocus
                         />
                     </Label>
@@ -69,6 +71,15 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
                         <NumberInputWrapper
                             value={localItem?.total || 0}
                             onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'total', val))}
+                            onSubmit={onSave}
+                        />
+                    </Label>
+                    <Label
+                        text="Description"
+                    >
+                        <TextareaWrapper
+                            value={localItem?.description || ''}
+                            onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'description', val))}
                         />
                     </Label>
                 </>
