@@ -2,7 +2,6 @@
 
 To-do:
 - Check RLS policies
-- Add list animation https://www.npmjs.com/package/react-flip-toolkit
 - Add languages
 - Add support for sharing lists
 - Add support for realtime polling (shared lists)

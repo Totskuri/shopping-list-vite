@@ -12,7 +12,7 @@ import {LIST_PROPS} from "../../../supabase/models/list.js";
 
 const ListCard = ({list, isEditMode, toggleEditMode, onDelete}) => {
     return (
-        <Card>
+        <Card flipId={list.id}>
             <Flex justifyContent="space-between" alignItems="center">
                 <Link
                     to={Routes.LIST_EDIT.replace(':id', list.id)}

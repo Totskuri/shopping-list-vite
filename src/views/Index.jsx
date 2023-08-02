@@ -46,7 +46,7 @@ const Index = () => {
             />
             {isInitializing && <Placeholder />}
             {!isInitializing && (
-                <CardList>
+                <CardList flipKey={JSON.stringify(filteredLists)}>
                     {filteredLists.map((list) => {
                         return (
                             <ListCard

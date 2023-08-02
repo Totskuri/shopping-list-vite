@@ -14,6 +14,7 @@ import Placeholder from "../../../layouts/Placeholder.jsx";
 import StateUtil from "../../../utils/StateUtil.js";
 import SortUtil from "../../../utils/SortUtil.js";
 import ItemEditDrawer from "../../../components/Drawer/ItemEditDrawer.jsx";
+import {Flipped, Flipper} from "react-flip-toolkit";
 
 const ListEdit = () => {
     const {id} = useParams();
@@ -69,7 +70,7 @@ const ListEdit = () => {
             />
             {isInitializing && <Placeholder />}
             {!isInitializing && (
-                <CardList>
+                <CardList flipKey={JSON.stringify(items)}>
                     {items.map((item) => {
                         return (
                             <ItemCard

@@ -10,7 +10,7 @@ import Flex from "../../Flex/Flex.jsx";
 
 const ItemCard = ({item, isEditMode, toggleEditMode, onChangeStatus, onDelete}) => {
     return (
-        <Card>
+        <Card flipId={item.id}>
             <Flex alignItems="center">
                 <label>
                     <div className={styles.checkboxContainer}>
