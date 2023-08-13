@@ -9,14 +9,16 @@ import ToastUtil from "../../utils/ToastUtil.jsx";
 import Item, {ITEM_PROPS} from "../../supabase/models/item.js";
 import NumberInputWrapper from "../Input/NumberInputWrapper.jsx";
 import TextareaWrapper from "../Input/TextareaWrapper.jsx";
+import useTranslation from "../../hooks/useTranslation.jsx";
 
 const ItemEditDrawer = ({item, handleClose, onChange}) => {
+    const t = useTranslation();
     const [localItem, setLocalItem] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const validate = () => {
         if (DataUtil.isEmpty(localItem.title)) {
-            ToastUtil.error('Title is required');
+            ToastUtil.error(t('Title is required'));
             return false;
         }
         return true;
@@ -55,10 +57,10 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
             {!DataUtil.isEmpty(localItem) && ( // autofocus fix
                 <>
                     <Label
-                        text="Title"
+                        text={t('Title')}
                     >
                         <TextInputWrapper
-                            placeholder="Enter title"
+                            placeholder={t('Enter title')}
                             value={localItem?.title || ''}
                             onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'title', val))}
                             onSubmit={onSave}
@@ -66,7 +68,7 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
                         />
                     </Label>
                     <Label
-                        text="Amount"
+                        text={t('Amount')}
                     >
                         <NumberInputWrapper
                             value={localItem?.total || 0}
@@ -75,9 +77,10 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
                         />
                     </Label>
                     <Label
-                        text="Description"
+                        text={t('Description')}
                     >
                         <TextareaWrapper
+                            placeholder={t('Enter description')}
                             value={localItem?.description || ''}
                             onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'description', val))}
                         />

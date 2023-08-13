@@ -4,8 +4,10 @@ import Padding from '../components/Padding/Padding';
 import User from '../supabase/models/user';
 import {useNavigate} from 'react-router-dom';
 import Routes from '../constants/routes';
+import useTranslation from "../hooks/useTranslation.jsx";
 
 const SignOut = () => {
+    const t = useTranslation();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,7 +19,7 @@ const SignOut = () => {
     return (
         <DefaultLayout>
             <Padding>
-                <span>Signing out...</span>
+                <span>{`${t('Signing out')}...`}</span>
             </Padding>
         </DefaultLayout>
     );

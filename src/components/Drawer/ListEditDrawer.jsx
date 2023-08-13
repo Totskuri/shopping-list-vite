@@ -7,14 +7,16 @@ import StateUtil from "../../utils/StateUtil.js";
 import List, {LIST_PROPS} from "../../supabase/models/list.js";
 import TextInputWrapper from "../Input/TextInputWrapper.jsx";
 import ToastUtil from "../../utils/ToastUtil.jsx";
+import useTranslation from "../../hooks/useTranslation.jsx";
 
 const ListEditDrawer = ({list, handleClose, onChange}) => {
+    const t = useTranslation();
     const [localList, setLocalList] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const validate = () => {
         if (DataUtil.isEmpty(localList.title)) {
-            ToastUtil.error('Title is required');
+            ToastUtil.error(t('Title is required'));
             return false;
         }
         return true;
@@ -53,10 +55,10 @@ const ListEditDrawer = ({list, handleClose, onChange}) => {
         >
             {!DataUtil.isEmpty(localList) && ( // autofocus fix
                 <Label
-                    text="Title"
+                    text={t('Title')}
                 >
                     <TextInputWrapper
-                        placeholder="Enter title"
+                        placeholder={t('Enter title')}
                         value={localList?.title || ''}
                         onChange={(val) => setLocalList(StateUtil.produceObject(localList, 'title', val))}
                         onSubmit={onSave}

@@ -4,8 +4,10 @@ import {supabase} from '../supabase/client';
 import PropTypes from 'prop-types';
 import DataUtil from '../utils/DataUtil';
 import Padding from "../components/Padding/Padding.jsx";
+import useTranslation from "../hooks/useTranslation.jsx";
 
 const Authentication = ({children}) => {
+    const t = useTranslation();
     const [initialized, setInitialized] = useState(false);
     const [session, setSession] = useState({});
 
@@ -28,7 +30,7 @@ const Authentication = ({children}) => {
         return (
             <Padding>
                 {!initialized && (
-                    <span>loading...</span>
+                    <span>{`${t('Loading')}...`}</span>
                 )}
                 {initialized && (
                     <Auth

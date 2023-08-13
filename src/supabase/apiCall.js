@@ -14,6 +14,32 @@ export default class ApiCall {
         return data;
     }
 
+    static async generateSelectSingle(from, columns) {
+        return supabase
+            .from(from)
+            .select(columns)
+            .maybeSingle();
+    }
+
+    static generateInsertSingle(from, insert, columns) {
+        return supabase
+            .from(from)
+            .insert(insert)
+            .select(columns)
+            .throwOnError()
+            .maybeSingle();
+    }
+
+    static generateUpdateByIdSingle(from, update, id, columns) {
+        return supabase
+            .from(from)
+            .update(update)
+            .eq('id', id)
+            .select(columns)
+            .throwOnError()
+            .maybeSingle();
+    }
+
     static async selectById(from, id, columns) {
         const {data, error} = await supabase
             .from(from)

@@ -9,8 +9,10 @@ import CardList from '../components/Card/CardList';
 import ListCard from "../components/Card/ListCard/ListCard.jsx";
 import StateUtil from "../utils/StateUtil.js";
 import ListEditDrawer from "../components/Drawer/ListEditDrawer.jsx";
+import useTranslation from "../hooks/useTranslation.jsx";
 
 const Index = () => {
+    const t = useTranslation();
     const [isInitializing, setIsInitializing] = useState(true);
     const [lists, setLists] = useState([]);
     const [searchInput, setSearchInput] = useState('');
@@ -65,7 +67,7 @@ const Index = () => {
                 bottom={30}
             >
                 <CreateButton
-                    text="New list"
+                    text={t('New list')}
                     onClick={() => setEditList(List.getEmptyList())}
                 />
             </Position>

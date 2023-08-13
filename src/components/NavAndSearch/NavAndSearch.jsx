@@ -7,9 +7,13 @@ import Routes from '../../constants/routes';
 import PropTypes from 'prop-types';
 import {TextInput, Drawer} from 'tyylisivu-components';
 import Padding from '../Padding/Padding';
+import useTranslation from "../../hooks/useTranslation.jsx";
+import LanguageSelect from "../Input/LanguageSelect.jsx";
 
 const NavAndSearch = ({searchValue, searchOnChange}) => {
+    const t = useTranslation();
     const [menuIsOpen, setMenuIsOpen] = useState(false);
+
     return (
         <div className={styles.navbar}>
             <IconButton
@@ -22,7 +26,7 @@ const NavAndSearch = ({searchValue, searchOnChange}) => {
                     <Search />
                 </div>
                 <TextInput
-                    placeholder="Search..."
+                    placeholder={`${t('Search')}...`}
                     className={styles.searchInput}
                     value={searchValue}
                     onChange={searchOnChange}
@@ -33,11 +37,12 @@ const NavAndSearch = ({searchValue, searchOnChange}) => {
                 handleClose={() => setMenuIsOpen(false)}
             >
                 <Padding>
+                    <LanguageSelect />
                     <Link
                         className={styles.drawerLink}
                         to={Routes.SIGN_OUT}
                     >
-                        Sign out
+                        {t('Sign out')}
                     </Link>
                 </Padding>
             </Drawer>

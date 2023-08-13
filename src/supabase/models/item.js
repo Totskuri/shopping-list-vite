@@ -18,7 +18,7 @@ export default class Item {
             id: null,
             list_id: listId,
             title: '',
-            total: 0,
+            total: 1,
             status: ITEM_STATUS_UNCHECKED,
             description: '',
         };

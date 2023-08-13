@@ -9,8 +9,10 @@ import Routes from "../../../constants/routes.js";
 import styles from './ListCard.module.scss';
 import {Gap} from "tyylisivu-components";
 import {LIST_PROPS} from "../../../supabase/models/list.js";
+import useTranslation from "../../../hooks/useTranslation.jsx";
 
 const ListCard = ({list, isEditMode, toggleEditMode, onDelete}) => {
+    const t = useTranslation();
     return (
         <Card flipId={list.id}>
             <Flex justifyContent="space-between" alignItems="center">
@@ -29,7 +31,7 @@ const ListCard = ({list, isEditMode, toggleEditMode, onDelete}) => {
                     </IconButton>
                     <IconButton
                         onClick={() => {
-                            if (window.confirm(`Delete item ${list.title}?`)) {
+                            if (window.confirm(`${t('Delete')} ${list.title}?`)) {
                                 onDelete();
                             }
                         }}

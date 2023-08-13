@@ -12,6 +12,7 @@
     "@supabase/auth-ui-react": "^0.2.2",
     "@supabase/supabase-js": "^2.0.0",
     "@szhsin/react-menu": "^3.5.3",
+    "@tanstack/react-query": "^4.32.6",
     "immer": "^9.0.15",
     "is-empty": "^1.2.0",
     "prop-types": "^15.8.1",
@@ -24,8 +25,7 @@
     "react-router-dom": "^6.4.2",
     "sanitize.css": "^13.0.0",
     "sass": "^1.55.0",
-    "tyylisivu-components": "^1.0.18",
-    "uuid": "^9.0.0"
+    "tyylisivu-components": "^1.0.18"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

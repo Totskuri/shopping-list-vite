@@ -7,8 +7,10 @@ import styles from './ItemCard.module.scss';
 import IconButton from "../../Button/IconButton.jsx";
 import {Edit, Trash2} from "react-feather";
 import Flex from "../../Flex/Flex.jsx";
+import useTranslation from "../../../hooks/useTranslation.jsx";
 
 const ItemCard = ({item, isEditMode, toggleEditMode, onChangeStatus, onDelete}) => {
+    const t = useTranslation();
     return (
         <Card flipId={item.id}>
             <Flex alignItems="center">
@@ -35,7 +37,7 @@ const ItemCard = ({item, isEditMode, toggleEditMode, onChangeStatus, onDelete}) 
                         </IconButton>
                         <IconButton
                             onClick={() => {
-                                if (window.confirm(`Delete item ${item.title}?`)) {
+                                if (window.confirm(`${t('Delete')} ${item.title}?`)) {
                                     onDelete();
                                 }
                             }}

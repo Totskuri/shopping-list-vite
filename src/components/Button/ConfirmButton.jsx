@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import {Check} from 'react-feather';
 import {Button, Gap} from 'tyylisivu-components';
 import Spinner from '../Spinner/Spinner';
+import useTranslation from "../../hooks/useTranslation.jsx";
 
 const ConfirmButton = ({onClick, disabled, isLoading}) => {
+    const t = useTranslation();
     return (
         <Button
             onClick={(e) => onClick(e)}
@@ -17,7 +19,7 @@ const ConfirmButton = ({onClick, disabled, isLoading}) => {
                 <Fragment>
                     <Check />
                     <Gap />
-                    <span>Confirm</span>
+                    <span>{t('Confirm')}</span>
                 </Fragment>
             )}
         </Button>

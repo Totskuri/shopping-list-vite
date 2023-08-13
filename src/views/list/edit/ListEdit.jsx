@@ -14,9 +14,10 @@ import Placeholder from "../../../layouts/Placeholder.jsx";
 import StateUtil from "../../../utils/StateUtil.js";
 import SortUtil from "../../../utils/SortUtil.js";
 import ItemEditDrawer from "../../../components/Drawer/ItemEditDrawer.jsx";
-import {Flipped, Flipper} from "react-flip-toolkit";
+import useTranslation from "../../../hooks/useTranslation.jsx";
 
 const ListEdit = () => {
+    const t = useTranslation();
     const {id} = useParams();
     const [isInitializing, setIsInitializing] = useState(true);
     const [list, setList] = useState({});
@@ -90,7 +91,7 @@ const ListEdit = () => {
                 bottom={30}
             >
                 <CreateButton
-                    text="Add items"
+                    text={t('Add item')}
                     onClick={() => setEditItem(Item.getEmptyItem(list.id))}
                 />
             </Position>
