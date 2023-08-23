@@ -7,8 +7,8 @@ const useSettingsMutation = () => {
         mutationFn: (data) => {
             return Setting.insertOrUpdateById(data);
         },
-        onSuccess: ({data}) => {
-            queryClient.setQueryData(['settings'], data);
+        onSuccess: (res) => {
+            queryClient.setQueryData(['settings'], res.data);
         }
     })
 };

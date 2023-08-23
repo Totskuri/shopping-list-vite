@@ -3,8 +3,8 @@ import Setting from "../supabase/models/setting.js";
 
 const useSettingsQuery = () => {
     const getSettings = async () => {
-        return Setting.select().then(({data}) => {
-            return data;
+        return Setting.select().then((res) => {
+            return res.data;
         });
     };
 

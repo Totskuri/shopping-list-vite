@@ -1,9 +1,8 @@
 # shopping-list-vite
 
 To-do:
--refactor to use react query hooks, add error handling
+- Refactor to use react query hooks, add error handling
 - Check RLS policies
-- Add languages https://lingui.dev/tutorials/react
 - Add support for sharing lists
 - Add support for realtime polling (shared lists)
 - Create logo and redesign ui elements
