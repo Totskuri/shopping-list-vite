@@ -1,5 +1,7 @@
 # shopping-list-vite
 
+Refactor to use TypeScript? Maybe in a perfect world...
+
 To-do:
 - Refactor to use react query hooks, add error handling
 - Check RLS policies

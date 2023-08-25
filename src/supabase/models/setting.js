@@ -18,7 +18,6 @@ export default class Setting {
     }
 
     static insert(insert) {
-        console.log(insert);
         return ApiCall.generateInsertSingle('settings', insert, SETTING_SELECT_COLUMNS);
     }
 
