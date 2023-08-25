@@ -1,5 +1,5 @@
 import ApiCall from '../apiCall';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 export const LIST_SELECT_COLUMNS = 'id, title';
 export const LIST_PROPS = PropTypes.shape({

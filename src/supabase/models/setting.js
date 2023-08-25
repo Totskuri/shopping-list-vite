@@ -1,5 +1,5 @@
 import ApiCall from '../apiCall';
-import languages from "../../constants/languages.js";
+import languages from '../../constants/languages.js';
 
 export const SETTING_SELECT_COLUMNS = 'id, lang';
 

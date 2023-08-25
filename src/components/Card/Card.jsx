@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Card.module.scss';
-import {Flipped} from "react-flip-toolkit";
+import {Flipped} from 'react-flip-toolkit';
 
 const Card = ({children, flipId}) => {
     return (

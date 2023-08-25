@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card.jsx';
-import IconButton from "../../Button/IconButton.jsx";
-import {Edit, Trash2} from "react-feather";
-import Flex from "../../Flex/Flex.jsx";
-import {Link} from "react-router-dom";
-import Routes from "../../../constants/routes.js";
+import IconButton from '../../Button/IconButton.jsx';
+import {Edit, Trash2} from 'react-feather';
+import Flex from '../../Flex/Flex.jsx';
+import {Link} from 'react-router-dom';
+import Routes from '../../../constants/routes.js';
 import styles from './ListCard.module.scss';
-import {Gap} from "tyylisivu-components";
-import {LIST_PROPS} from "../../../supabase/models/list.js";
-import useTranslation from "../../../hooks/useTranslation.jsx";
+import {Gap} from 'tyylisivu-components';
+import {LIST_PROPS} from '../../../supabase/models/list.js';
+import useTranslation from '../../../hooks/useTranslation.jsx';
 
 const ListCard = ({list, isEditMode, toggleEditMode, onDelete}) => {
     const t = useTranslation();

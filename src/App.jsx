@@ -4,12 +4,12 @@ import 'sanitize.css/forms.css';
 import 'sanitize.css/typography.css';
 import './App.scss';
 import Authentication from './views/Authentication';
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import routes from "./constants/routes.js";
-import Index from "./views/Index.jsx";
-import SignOut from "./views/SignOut.jsx";
-import ListEdit from "./views/list/edit/ListEdit.jsx";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
+import routes from './constants/routes.js';
+import Index from './views/Index.jsx';
+import SignOut from './views/SignOut.jsx';
+import ListEdit from './views/list/edit/ListEdit.jsx';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 

@@ -1,7 +1,7 @@
-import languages from "../constants/languages.js";
-import translations from "../constants/translations.js";
-import DataUtil from "../utils/DataUtil.js";
-import useSettingsQuery from "./useSettingsQuery.jsx";
+import languages from '../constants/languages.js';
+import translations from '../constants/translations.js';
+import DataUtil from '../utils/DataUtil.js';
+import useSettingsQuery from './useSettingsQuery.jsx';
 
 const useTranslation = () => {
     const {isLoading, isError, data} = useSettingsQuery();

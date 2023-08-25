@@ -1,10 +1,10 @@
 import React from 'react';
-import {Label} from "tyylisivu-components";
-import languages from "../../constants/languages.js";
-import useSettingsQuery from "../../hooks/useSettingsQuery.jsx";
-import useSettingsMutation from "../../hooks/useSettingsMutation.jsx";
-import useTranslation from "../../hooks/useTranslation.jsx";
-import Setting from "../../supabase/models/setting.js";
+import {Label} from 'tyylisivu-components';
+import languages from '../../constants/languages.js';
+import useSettingsQuery from '../../hooks/useSettingsQuery.jsx';
+import useSettingsMutation from '../../hooks/useSettingsMutation.jsx';
+import useTranslation from '../../hooks/useTranslation.jsx';
+import Setting from '../../supabase/models/setting.js';
 
 const LanguageSelect = () => {
     const t = useTranslation();
@@ -17,7 +17,7 @@ const LanguageSelect = () => {
             if (data) {
                 newSettings = data;
             }
-            newSettings = {...newSettings, ...{lang: newLang}}
+            newSettings = {...newSettings, ...{lang: newLang}};
             mutateSettings.mutate(newSettings);
         }
     };

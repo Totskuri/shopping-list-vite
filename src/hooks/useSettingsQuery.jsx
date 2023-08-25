@@ -1,5 +1,5 @@
-import {useQuery} from "@tanstack/react-query";
-import Setting from "../supabase/models/setting.js";
+import {useQuery} from '@tanstack/react-query';
+import Setting from '../supabase/models/setting.js';
 
 const useSettingsQuery = () => {
     const getSettings = async () => {

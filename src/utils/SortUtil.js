@@ -1,4 +1,4 @@
-import {ITEM_STATUS_CHECKED, ITEM_STATUS_UNCHECKED} from "../supabase/models/item.js";
+import {ITEM_STATUS_CHECKED, ITEM_STATUS_UNCHECKED} from '../supabase/models/item.js';
 
 export default class SortUtil {
     static sortItemsForList(items) {

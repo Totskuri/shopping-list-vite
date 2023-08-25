@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "react-app"
+    ],
+    "rules": {
+        "quotes": [2, "single", { "avoidEscape": true }],
+        "semi": [2, "always"],
+        "react-hooks/exhaustive-deps": 0
+    }
+}

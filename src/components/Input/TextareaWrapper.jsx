@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Textarea} from "tyylisivu-components";
+import {Textarea} from 'tyylisivu-components';
 import styles from './Input.module.scss';
 
 const TextareaWrapper = ({placeholder, value, onChange, autoFocus, onSubmit}) => {

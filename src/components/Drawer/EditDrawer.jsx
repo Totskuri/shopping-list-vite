@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Drawer, Gap} from "tyylisivu-components";
+import {Drawer, Gap} from 'tyylisivu-components';
 import styles from './EditDrawer.module.scss';
-import CancelButton from "../Button/CancelButton.jsx";
-import ConfirmButton from "../Button/ConfirmButton.jsx";
+import CancelButton from '../Button/CancelButton.jsx';
+import ConfirmButton from '../Button/ConfirmButton.jsx';
 
 const EditDrawer = ({isOpen, handleClose, handleSave, children, isLoading}) => {
     return (

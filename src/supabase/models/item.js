@@ -1,5 +1,5 @@
 import ApiCall from '../apiCall';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 export const ITEM_STATUS_UNCHECKED = 'UNCHECKED';
 export const ITEM_STATUS_CHECKED = 'CHECKED';

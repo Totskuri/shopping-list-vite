@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Menu, MenuItem} from "@szhsin/react-menu";
-import "@szhsin/react-menu/dist/core.css";
+import {Menu, MenuItem} from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/core.css';
 import styles from './MenuWrapper.module.scss';
-import Spinner from "../Spinner/Spinner.jsx";
-import {MoreVertical} from "react-feather";
+import Spinner from '../Spinner/Spinner.jsx';
+import {MoreVertical} from 'react-feather';
 
 const MenuWrapper = ({isActionInProgress, actions}) => {
     const menuClassName = ({ state }) =>
-        state === "opening"
+        state === 'opening'
             ? styles.menuOpening
-            : state === "closing"
+            : state === 'closing'
                 ? styles.menuClosing
                 : styles.menu;
 
@@ -34,8 +34,8 @@ const MenuWrapper = ({isActionInProgress, actions}) => {
                 >
                     {text}
                 </MenuItem>
-            )
-        })
+            );
+        });
         return render;
     };
 

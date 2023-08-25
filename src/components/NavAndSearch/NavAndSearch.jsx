@@ -7,8 +7,8 @@ import Routes from '../../constants/routes';
 import PropTypes from 'prop-types';
 import {TextInput, Drawer} from 'tyylisivu-components';
 import Padding from '../Padding/Padding';
-import useTranslation from "../../hooks/useTranslation.jsx";
-import LanguageSelect from "../Input/LanguageSelect.jsx";
+import useTranslation from '../../hooks/useTranslation.jsx';
+import LanguageSelect from '../Input/LanguageSelect.jsx';
 
 const NavAndSearch = ({searchValue, searchOnChange}) => {
     const t = useTranslation();

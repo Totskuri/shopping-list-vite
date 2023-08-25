@@ -6,10 +6,10 @@ import NavAndSearch from '../components/NavAndSearch/NavAndSearch';
 import List from '../supabase/models/list';
 import Placeholder from '../layouts/Placeholder';
 import CardList from '../components/Card/CardList';
-import ListCard from "../components/Card/ListCard/ListCard.jsx";
-import StateUtil from "../utils/StateUtil.js";
-import ListEditDrawer from "../components/Drawer/ListEditDrawer.jsx";
-import useTranslation from "../hooks/useTranslation.jsx";
+import ListCard from '../components/Card/ListCard/ListCard.jsx';
+import StateUtil from '../utils/StateUtil.js';
+import ListEditDrawer from '../components/Drawer/ListEditDrawer.jsx';
+import useTranslation from '../hooks/useTranslation.jsx';
 
 const Index = () => {
     const t = useTranslation();

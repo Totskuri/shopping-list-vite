@@ -26,11 +26,4 @@ export default class StateUtil {
             draft[index] = value;
         });
     }
-
-    static updateArrayItemByIdAndKey(id, array, value, key) {
-        const index = array.findIndex((item) => item.id === id);
-        return produce(array, (draft) => {
-            draft[index][key] = value;
-        });
-    }
 }

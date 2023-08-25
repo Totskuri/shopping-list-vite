@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Padding from '../Padding/Padding';
 import styles from './CardList.module.scss';
-import {Flipper} from "react-flip-toolkit";
+import {Flipper} from 'react-flip-toolkit';
 
 const CardList = ({children, flipKey}) => {
     return (

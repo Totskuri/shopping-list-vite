@@ -8,10 +8,5 @@ export default class User {
             console.error(error);
         }
     }
-
-    static async getId() {
-        const {data: {user: {id}}} = await supabase.auth.getUser();
-        return id;
-    }
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TextInput} from "tyylisivu-components";
+import {TextInput} from 'tyylisivu-components';
 import styles from './Input.module.scss';
 
 const TextInputWrapper = ({placeholder, value, onChange, autoFocus, onSubmit}) => {

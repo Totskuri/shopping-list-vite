@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Label} from "tyylisivu-components";
-import EditDrawer from "./EditDrawer.jsx";
-import DataUtil from "../../utils/DataUtil.js";
-import StateUtil from "../../utils/StateUtil.js";
-import TextInputWrapper from "../Input/TextInputWrapper.jsx";
-import ToastUtil from "../../utils/ToastUtil.jsx";
-import Item, {ITEM_PROPS} from "../../supabase/models/item.js";
-import NumberInputWrapper from "../Input/NumberInputWrapper.jsx";
-import TextareaWrapper from "../Input/TextareaWrapper.jsx";
-import useTranslation from "../../hooks/useTranslation.jsx";
+import {Label} from 'tyylisivu-components';
+import EditDrawer from './EditDrawer.jsx';
+import DataUtil from '../../utils/DataUtil.js';
+import StateUtil from '../../utils/StateUtil.js';
+import TextInputWrapper from '../Input/TextInputWrapper.jsx';
+import ToastUtil from '../../utils/ToastUtil.jsx';
+import Item, {ITEM_PROPS} from '../../supabase/models/item.js';
+import NumberInputWrapper from '../Input/NumberInputWrapper.jsx';
+import TextareaWrapper from '../Input/TextareaWrapper.jsx';
+import useTranslation from '../../hooks/useTranslation.jsx';
 
 const ItemEditDrawer = ({item, handleClose, onChange}) => {
     const t = useTranslation();
@@ -44,7 +44,7 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
     };
 
     useEffect(() => {
-        setLocalItem(item)
+        setLocalItem(item);
     }, [item]);
 
     return (
