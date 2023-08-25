@@ -1,11 +1,11 @@
 import {supabase} from '../client';
-import DataUtil from '../../utils/DataUtil';
+import ToastUtil from '../../utils/ToastUtil.jsx';
 
 export default class User {
     static async signOut() {
         const {error} = await supabase.auth.signOut();
-        if (!DataUtil.isEmpty(error)) {
-            console.error(error);
+        if (error) {
+            ToastUtil.error(error);
         }
     }
 };

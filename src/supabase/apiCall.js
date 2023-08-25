@@ -1,6 +1,5 @@
 import {supabase} from './client';
 import ToastUtil from '../utils/ToastUtil';
-import DataUtil from '../utils/DataUtil';
 
 export default class ApiCall {
     static async select(from, columns, order, ascending = false) {
@@ -53,7 +52,7 @@ export default class ApiCall {
             return data[0];
         }
 
-        return [];
+        return null;
     }
 
     static async selectByColumn(from, columns, column, value, order, ascending = false) {
@@ -99,15 +98,12 @@ export default class ApiCall {
 
         this.handleError(error);
 
-        return DataUtil.isEmpty(error);
+        return !error;
     }
 
     static handleError = (error) => {
-        if (!DataUtil.isEmpty(error)) {
-            console.error(error);
-            if (!DataUtil.isEmpty(error.message)) {
-                ToastUtil.error(error.message);
-            }
+        if (error?.message) {
+            ToastUtil.error(error.message);
         }
     };
 };

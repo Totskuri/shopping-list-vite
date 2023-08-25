@@ -9,7 +9,6 @@ import Position from '../../../components/Position/Position';
 import NotFound from '../../../layouts/NotFound';
 import ItemCard from '../../../components/Card/ItemCard/ItemCard.jsx';
 import CardList from '../../../components/Card/CardList';
-import DataUtil from '../../../utils/DataUtil';
 import Placeholder from '../../../layouts/Placeholder.jsx';
 import StateUtil from '../../../utils/StateUtil.js';
 import SortUtil from '../../../utils/SortUtil.js';
@@ -20,7 +19,7 @@ const ListEdit = () => {
     const t = useTranslation();
     const {id} = useParams();
     const [isInitializing, setIsInitializing] = useState(true);
-    const [list, setList] = useState({});
+    const [list, setList] = useState(null);
     const [items, setItems] = useState(null);
     const [editItem, setEditItem] = useState(null);
 
@@ -60,14 +59,14 @@ const ListEdit = () => {
         initialize();
     }, [id]);
 
-    if (!isInitializing && DataUtil.isEmpty(list)) {
+    if (!isInitializing && !list) {
         return <NotFound text="List not found" />;
     }
 
     return (
         <DefaultLayout>
             <ListEditTitleBar
-                title={list.title}
+                title={list?.title}
             />
             {isInitializing && <Placeholder />}
             {!isInitializing && (

@@ -17,7 +17,7 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const validate = () => {
-        if (DataUtil.isEmpty(localItem.title)) {
+        if (!localItem?.title) {
             ToastUtil.error(t('Title is required'));
             return false;
         }
@@ -49,16 +49,16 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
 
     return (
         <EditDrawer
-            isOpen={!DataUtil.isEmpty(item)}
+            isOpen={localItem !== null}
             handleClose={handleClose}
             handleSave={onSave}
             isLoading={isLoading}
         >
-            {!DataUtil.isEmpty(localItem) && ( // autofocus fix
-                <>
-                    <Label
-                        text={t('Title')}
-                    >
+            <>
+                <Label
+                    text={t('Title')}
+                >
+                    {localItem && ( // autofocus fix
                         <TextInputWrapper
                             placeholder={t('Enter title')}
                             value={localItem?.title || ''}
@@ -66,27 +66,27 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
                             onSubmit={onSave}
                             autoFocus
                         />
-                    </Label>
-                    <Label
-                        text={t('Amount')}
-                    >
-                        <NumberInputWrapper
-                            value={localItem?.total || 0}
-                            onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'total', val))}
-                            onSubmit={onSave}
-                        />
-                    </Label>
-                    <Label
-                        text={t('Description')}
-                    >
-                        <TextareaWrapper
-                            placeholder={t('Enter description')}
-                            value={localItem?.description || ''}
-                            onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'description', val))}
-                        />
-                    </Label>
-                </>
-            )}
+                    )}
+                </Label>
+                <Label
+                    text={t('Amount')}
+                >
+                    <NumberInputWrapper
+                        value={localItem?.total || 0}
+                        onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'total', val))}
+                        onSubmit={onSave}
+                    />
+                </Label>
+                <Label
+                    text={t('Description')}
+                >
+                    <TextareaWrapper
+                        placeholder={t('Enter description')}
+                        value={localItem?.description || ''}
+                        onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'description', val))}
+                    />
+                </Label>
+            </>
         </EditDrawer>
     );
 };

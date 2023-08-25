@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Label} from 'tyylisivu-components';
 import EditDrawer from './EditDrawer.jsx';
-import DataUtil from '../../utils/DataUtil.js';
 import StateUtil from '../../utils/StateUtil.js';
 import List, {LIST_PROPS} from '../../supabase/models/list.js';
 import TextInputWrapper from '../Input/TextInputWrapper.jsx';
@@ -15,7 +14,7 @@ const ListEditDrawer = ({list, handleClose, onChange}) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const validate = () => {
-        if (DataUtil.isEmpty(localList.title)) {
+        if (!localList?.title) {
             ToastUtil.error(t('Title is required'));
             return false;
         }
@@ -48,15 +47,15 @@ const ListEditDrawer = ({list, handleClose, onChange}) => {
 
     return (
         <EditDrawer
-            isOpen={!DataUtil.isEmpty(list)}
+            isOpen={localList !== null}
             handleClose={handleClose}
             handleSave={onSave}
             isLoading={isLoading}
         >
-            {!DataUtil.isEmpty(localList) && ( // autofocus fix
-                <Label
-                    text={t('Title')}
-                >
+            <Label
+                text={t('Title')}
+            >
+                {localList && ( // autofocus fix
                     <TextInputWrapper
                         placeholder={t('Enter title')}
                         value={localList?.title || ''}
@@ -64,8 +63,9 @@ const ListEditDrawer = ({list, handleClose, onChange}) => {
                         onSubmit={onSave}
                         autoFocus
                     />
-                </Label>
-            )}
+
+                )}
+            </Label>
         </EditDrawer>
     );
 };
