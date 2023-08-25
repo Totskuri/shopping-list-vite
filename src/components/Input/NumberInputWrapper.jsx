@@ -4,7 +4,6 @@ import {NumberInput} from 'tyylisivu-components';
 import styles from './Input.module.scss';
 
 const NumberInputWrapper = ({value, onChange, readOnly, autoFocus, min, max, onSubmit}) => {
-
     return (
         <NumberInput
             className={styles.input}
