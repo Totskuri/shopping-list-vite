@@ -1,8 +1,8 @@
 import {useQuery} from '@tanstack/react-query';
-import Setting from '../supabase/models/setting.js';
+import Setting from '../../supabase/models/setting.js';
 
-const useSettingsQuery = () => {
-    const getSettings = async () => {
+const useSettingQuery = () => {
+    const getSettings = () => {
         return Setting.select().then((res) => {
             return res.data;
         });
@@ -14,4 +14,4 @@ const useSettingsQuery = () => {
     });
 };
 
-export default useSettingsQuery;
+export default useSettingQuery;

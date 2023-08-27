@@ -18,11 +18,11 @@ export default class Setting {
     }
 
     static insert(insert) {
-        return ApiCall.generateInsertSingle('settings', insert, SETTING_SELECT_COLUMNS);
+        return ApiCall.generateInsert('settings', insert);
     }
 
     static updateById(id, update) {
-        return ApiCall.generateUpdateByIdSingle('settings', update, id, SETTING_SELECT_COLUMNS);
+        return ApiCall.generateUpdateById('settings', update, id);
     }
 
     static insertOrUpdateById(data) {

@@ -16,32 +16,34 @@ export default class List {
     }
 
     static select() {
-        return ApiCall.select(
+        return ApiCall.generateSelect(
             'lists',
             LIST_SELECT_COLUMNS,
             'created_at');
     }
 
     static selectById(id) {
-        return ApiCall.selectById(
+        return ApiCall.generateSelectById(
             'lists',
             id,
             LIST_SELECT_COLUMNS);
     }
 
     static insert(insert) {
-        return ApiCall.insert('lists', insert, LIST_SELECT_COLUMNS);
+        return ApiCall.generateInsert('lists', insert);
     }
 
     static deleteById(id) {
-        return ApiCall.deleteById('lists', id);
+        return ApiCall.generateDeleteById('lists', id);
     }
 
     static updateById(id, update) {
-        return ApiCall.updateById('lists', update, id, LIST_SELECT_COLUMNS);
+        return ApiCall.generateUpdateById('lists', update, id);
     }
 
-    static insertOrUpdateById(id, data) {
+    static insertOrUpdateById({...data}) {
+        const {id} = data;
+        delete data.id;
         if (id) {
             return this.updateById(id, data);
         }

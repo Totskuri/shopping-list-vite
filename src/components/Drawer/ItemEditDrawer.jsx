@@ -6,15 +6,16 @@ import DataUtil from '../../utils/DataUtil.js';
 import StateUtil from '../../utils/StateUtil.js';
 import TextInputWrapper from '../Input/TextInputWrapper.jsx';
 import ToastUtil from '../../utils/ToastUtil.jsx';
-import Item, {ITEM_PROPS} from '../../supabase/models/item.js';
+import {ITEM_PROPS} from '../../supabase/models/item.js';
 import NumberInputWrapper from '../Input/NumberInputWrapper.jsx';
 import TextareaWrapper from '../Input/TextareaWrapper.jsx';
 import useTranslation from '../../hooks/useTranslation.jsx';
+import useItemInsertOrUpdateById from '../../hooks/item/useInsertOrUpdateById.jsx';
 
-const ItemEditDrawer = ({item, handleClose, onChange}) => {
+const ItemEditDrawer = ({item, handleClose}) => {
     const t = useTranslation();
-    const [localItem, setLocalItem] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const {mutate, isLoading, isSuccess} = useItemInsertOrUpdateById();
+    const [localItem, setLocalItem] = useState(item);
 
     const validate = () => {
         if (!localItem?.title) {
@@ -34,18 +35,14 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
             handleClose();
             return;
         }
-        setIsLoading(true);
-        Item.insertOrUpdateById(localItem.id, localItem).then((data) => {
-            if (data.length === 1) {
-                onChange(data[0]);
-                handleClose();
-            }
-        }).finally(() => setIsLoading(false));
+        mutate(localItem);
     };
 
     useEffect(() => {
-        setLocalItem(item);
-    }, [item]);
+        if (isSuccess) {
+            handleClose();
+        }
+    }, [isSuccess]);
 
     return (
         <EditDrawer
@@ -94,7 +91,6 @@ const ItemEditDrawer = ({item, handleClose, onChange}) => {
 ItemEditDrawer.propTypes = {
     item: ITEM_PROPS,
     handleClose: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
 };
 
 ItemEditDrawer.defaultProps = {

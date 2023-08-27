@@ -14,10 +14,6 @@ export default class ToastUtil {
         );
     }
 
-    static success(message) {
-        toast.success(message);
-    };
-
     static error(message) {
         toast.error(message);
     };

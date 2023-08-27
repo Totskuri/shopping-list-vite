@@ -1,9 +1,9 @@
 import languages from '../constants/languages.js';
 import translations from '../constants/translations.js';
-import useSettingsQuery from './useSettingsQuery.jsx';
+import useSettingQuery from './setting/useSettingQuery.jsx';
 
 const useTranslation = () => {
-    const {isLoading, isError, data} = useSettingsQuery();
+    const {isLoading, isError, data} = useSettingQuery();
 
     return (text) => {
         if (isLoading || isError || !data) {

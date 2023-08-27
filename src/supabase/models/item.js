@@ -25,7 +25,7 @@ export default class Item {
     }
 
     static select(listId) {
-        return ApiCall.selectByColumn(
+        return ApiCall.generateSelectByColumn(
             'items',
             ITEM_SELECT_COLUMNS,
             'list_id',
@@ -34,32 +34,24 @@ export default class Item {
     }
 
     static insert(insert) {
-        return ApiCall.insert('items', insert, ITEM_SELECT_COLUMNS);
+        return ApiCall.generateInsert('items', insert);
     }
 
     static updateById(id, update) {
-        return ApiCall.updateById('items', update, id, ITEM_SELECT_COLUMNS);
+        return ApiCall.generateUpdateById('items', update, id);
     }
 
     static deleteById(id) {
-        return ApiCall.deleteById('items', id);
+        return ApiCall.generateDeleteById('items', id);
     }
 
-    static insertOrUpdateById(id, data) {
+    static insertOrUpdateById({...data}) {
+        const {id} = data;
+        delete data.id;
         if (id) {
-            return this.updateById(id, {
-                title: data.title,
-                total: data.total,
-                description: data.description
-            });
+            return this.updateById(id, data);
         }
-        return this.insert({
-            list_id: data.list_id,
-            title: data.title,
-            total: data.total,
-            status: data.status,
-            description: data.description
-        });
+        return this.insert(data);
     }
 };
 

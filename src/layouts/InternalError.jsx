@@ -4,7 +4,7 @@ import Padding from '../components/Padding/Padding.jsx';
 import PropTypes from 'prop-types';
 import useTranslation from '../hooks/useTranslation.jsx';
 
-const NotFound = ({text}) => {
+const InternalError = ({text}) => {
     const t = useTranslation();
     return (
         <DefaultLayout>
@@ -15,12 +15,12 @@ const NotFound = ({text}) => {
     );
 };
 
-NotFound.propTypes = {
+InternalError.propTypes = {
     text: PropTypes.string,
 };
 
-NotFound.defaultProps = {
-    text: 'Not found',
+InternalError.defaultProps = {
+    text: 'Internal error',
 };
 
-export default NotFound;
+export default InternalError;

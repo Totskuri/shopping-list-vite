@@ -1,9 +1,7 @@
 # shopping-list-vite
 
-Refactor to use TypeScript? Maybe in a perfect world...
-
 To-do:
-- Refactor to use react query hooks, add error handling
+- Add client state for checkbox/delete? Feels sluggish.
 - Check RLS policies
 - Add support for sharing lists
 - Add support for realtime polling (shared lists)

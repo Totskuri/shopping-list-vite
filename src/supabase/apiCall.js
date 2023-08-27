@@ -1,16 +1,12 @@
 import {supabase} from './client';
-import ToastUtil from '../utils/ToastUtil';
 
 export default class ApiCall {
-    static async select(from, columns, order, ascending = false) {
-        const {data, error} = await supabase
+    static async generateSelect(from, columns, order, ascending = false) {
+        return supabase
             .from(from)
             .select(columns)
-            .order(order, {ascending});
-
-        this.handleError(error);
-
-        return data;
+            .order(order, {ascending})
+            .throwOnError();
     }
 
     static async generateSelectSingle(from, columns) {
@@ -20,91 +16,45 @@ export default class ApiCall {
             .maybeSingle();
     }
 
-    static generateInsertSingle(from, insert, columns) {
+    static generateInsert(from, insert) {
         return supabase
             .from(from)
             .insert(insert)
-            .select(columns)
-            .throwOnError()
-            .maybeSingle();
+            .throwOnError();
     }
 
-    static generateUpdateByIdSingle(from, update, id, columns) {
+    static generateUpdateById(from, update, id) {
         return supabase
             .from(from)
             .update(update)
             .eq('id', id)
-            .select(columns)
-            .throwOnError()
-            .maybeSingle();
+            .throwOnError();
     }
 
-    static async selectById(from, id, columns) {
-        const {data, error} = await supabase
+    static generateDeleteById(from, id)
+    {
+        return supabase
+            .from(from)
+            .delete()
+            .eq('id', id)
+            .throwOnError();
+    }
+
+    static async generateSelectById(from, id, columns) {
+        return supabase
             .from(from)
             .select(columns)
             .eq('id', id)
-            .limit(1);
-
-        this.handleError(error);
-
-        if (data.length > 0) {
-            return data[0];
-        }
-
-        return null;
+            .single();
     }
 
-    static async selectByColumn(from, columns, column, value, order, ascending = false) {
-        const {data, error} = await supabase
+    static async generateSelectByColumn(from, columns, column, value, order, ascending = false) {
+        return supabase
             .from(from)
             .select(columns)
             .eq(column, value)
-            .order(order, {ascending});
-
-        this.handleError(error);
-
-        return data;
+            .order(order, {ascending})
+            .throwOnError();
     }
-
-    static async insert(from, insert, columns) {
-        const {data, error} = await supabase
-            .from(from)
-            .insert(insert)
-            .select(columns);
-
-        this.handleError(error);
-
-        return data;
-    }
-
-    static async updateById(from, update, id, columns) {
-        const {data, error} = await supabase
-            .from(from)
-            .update(update)
-            .eq('id', id)
-            .select(columns);
-
-        this.handleError(error);
-
-        return data;
-    }
-
-    static async deleteById(from, id) {
-        const {error} = await supabase
-            .from(from)
-            .delete()
-            .eq('id', id);
-
-        this.handleError(error);
-
-        return !error;
-    }
-
-    static handleError = (error) => {
-        if (error?.message) {
-            ToastUtil.error(error.message);
-        }
-    };
 };
 

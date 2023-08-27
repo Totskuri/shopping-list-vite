@@ -1,15 +1,15 @@
 import React from 'react';
 import {Label} from 'tyylisivu-components';
 import languages from '../../constants/languages.js';
-import useSettingsQuery from '../../hooks/useSettingsQuery.jsx';
-import useSettingsMutation from '../../hooks/useSettingsMutation.jsx';
+import useSettingQuery from '../../hooks/setting/useSettingQuery.jsx';
+import useSettingMutation from '../../hooks/setting/useSettingMutation.jsx';
 import useTranslation from '../../hooks/useTranslation.jsx';
 import Setting from '../../supabase/models/setting.js';
 
 const LanguageSelect = () => {
     const t = useTranslation();
-    const {isLoading, isError, data} = useSettingsQuery();
-    const mutateSettings = useSettingsMutation();
+    const {isLoading, isError, data} = useSettingQuery();
+    const {mutate} = useSettingMutation();
 
     const onChangeLanguage = (newLang) => {
         if (Object.values(languages).includes(newLang)) {
@@ -18,7 +18,7 @@ const LanguageSelect = () => {
                 newSettings = data;
             }
             newSettings = {...newSettings, ...{lang: newLang}};
-            mutateSettings.mutate(newSettings);
+            mutate(newSettings);
         }
     };
 

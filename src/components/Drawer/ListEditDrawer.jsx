@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import {Label} from 'tyylisivu-components';
 import EditDrawer from './EditDrawer.jsx';
 import StateUtil from '../../utils/StateUtil.js';
-import List, {LIST_PROPS} from '../../supabase/models/list.js';
+import {LIST_PROPS} from '../../supabase/models/list.js';
 import TextInputWrapper from '../Input/TextInputWrapper.jsx';
 import ToastUtil from '../../utils/ToastUtil.jsx';
 import useTranslation from '../../hooks/useTranslation.jsx';
+import useListInsertOrUpdateById from '../../hooks/list/useListInsertOrUpdateById.jsx';
 
-const ListEditDrawer = ({list, handleClose, onChange}) => {
+const ListEditDrawer = ({list, handleClose}) => {
     const t = useTranslation();
-    const [localList, setLocalList] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const {mutate, isLoading, isSuccess} = useListInsertOrUpdateById();
+    const [localList, setLocalList] = useState(list);
 
     const validate = () => {
         if (!localList?.title) {
@@ -22,28 +23,23 @@ const ListEditDrawer = ({list, handleClose, onChange}) => {
     };
 
     const onSave = () => {
-        const {id, title} = localList;
         // Check data is valid before save
         if (!validate()) {
             return;
         }
         // Only update if data changed and user wants to save
-        if (list?.title === title) {
+        if (list?.title === localList.title) {
             handleClose();
             return;
         }
-        setIsLoading(true);
-        List.insertOrUpdateById(id, {title}).then((data) => {
-            if (data.length === 1) {
-                onChange(data[0]);
-                handleClose();
-            }
-        }).finally(() => setIsLoading(false));
+        mutate(localList);
     };
 
     useEffect(() => {
-        setLocalList(list);
-    }, [list]);
+        if (isSuccess) {
+            handleClose();
+        }
+    }, [isSuccess]);
 
     return (
         <EditDrawer
@@ -63,7 +59,6 @@ const ListEditDrawer = ({list, handleClose, onChange}) => {
                         onSubmit={onSave}
                         autoFocus
                     />
-
                 )}
             </Label>
         </EditDrawer>
@@ -73,7 +68,6 @@ const ListEditDrawer = ({list, handleClose, onChange}) => {
 ListEditDrawer.propTypes = {
     list: LIST_PROPS,
     handleClose: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
 };
 
 ListEditDrawer.defaultProps = {

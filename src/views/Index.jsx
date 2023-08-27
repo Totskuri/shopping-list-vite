@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CreateButton from '../components/Button/CreateButton';
 import Position from '../components/Position/Position';
@@ -7,38 +7,33 @@ import List from '../supabase/models/list';
 import Placeholder from '../layouts/Placeholder';
 import CardList from '../components/Card/CardList';
 import ListCard from '../components/Card/ListCard/ListCard.jsx';
-import StateUtil from '../utils/StateUtil.js';
 import ListEditDrawer from '../components/Drawer/ListEditDrawer.jsx';
 import useTranslation from '../hooks/useTranslation.jsx';
+import useListQuery from '../hooks/list/useListQuery.jsx';
+import InternalError from '../layouts/InternalError.jsx';
+import useListDeleteById from '../hooks/list/useListDeleteById.jsx';
 
 const Index = () => {
     const t = useTranslation();
-    const [isInitializing, setIsInitializing] = useState(true);
-    const [lists, setLists] = useState([]);
+    const {isLoading, isError, data: lists} = useListQuery();
+    const {mutate: deleteList} = useListDeleteById();
     const [searchInput, setSearchInput] = useState('');
     const [editList, setEditList] = useState(null);
 
-    const fetchLists = () => {
-        List.select().then((lists) => {
-            setLists(lists);
-        }).finally(() => setIsInitializing(false));
-    };
-
-    const deleteList = (listId) => {
-        List.deleteById(listId).then((success) => {
-            if (success) {
-                setLists(StateUtil.removeFromArrayById(listId, lists));
-            }
-        });
-    };
-
-    useEffect(() => {
-        fetchLists();
-    }, []);
-
     const filteredLists = useMemo(() => {
+        if (!lists) {
+            return [];
+        }
         return lists.filter((list) => list.title.includes(searchInput));
     }, [lists, searchInput]);
+
+    if (isLoading) {
+        return <Placeholder />;
+    }
+
+    if (isError) {
+        return <InternalError />;
+    }
 
     return (
         <DefaultLayout>
@@ -46,22 +41,19 @@ const Index = () => {
                 searchValue={searchInput}
                 searchOnChange={(val) => setSearchInput(val)}
             />
-            {isInitializing && <Placeholder />}
-            {!isInitializing && (
-                <CardList flipKey={JSON.stringify(filteredLists)}>
-                    {filteredLists.map((list) => {
-                        return (
-                            <ListCard
-                                key={list.id}
-                                isEditMode={list.id === editList?.id}
-                                list={list}
-                                toggleEditMode={() => setEditList(list)}
-                                onDelete={() => deleteList(list.id)}
-                            />
-                        );
-                    })}
-                </CardList>
-            )}
+            <CardList flipKey={JSON.stringify(filteredLists)}>
+                {filteredLists.map((list) => {
+                    return (
+                        <ListCard
+                            key={list.id}
+                            isEditMode={list.id === editList?.id}
+                            list={list}
+                            toggleEditMode={() => setEditList(list)}
+                            onDelete={() => deleteList(list.id)}
+                        />
+                    );
+                })}
+            </CardList>
             <Position
                 right={40}
                 bottom={30}
@@ -71,18 +63,12 @@ const Index = () => {
                     onClick={() => setEditList(List.getEmptyList())}
                 />
             </Position>
-            <ListEditDrawer
-                list={editList}
-                onChange={(data) => {
-                    const found = lists.find((list) => list.id === data?.id);
-                    if (found) {
-                        setLists(StateUtil.updateArrayItemById(data?.id, lists, data));
-                    } else {
-                        setLists(StateUtil.addToArrayByIndex(lists, data));
-                    }
-                }}
-                handleClose={() => setEditList(null)}
-            />
+            {editList && (
+                <ListEditDrawer
+                    list={editList}
+                    handleClose={() => setEditList(null)}
+                />
+            )}
         </DefaultLayout>
     );
 };
