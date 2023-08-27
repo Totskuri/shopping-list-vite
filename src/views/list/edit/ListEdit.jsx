@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import DefaultLayout from '../../../layouts/DefaultLayout';
 import {useParams} from 'react-router-dom';
 import Item, {ITEM_STATUS_CHECKED, ITEM_STATUS_UNCHECKED} from '../../../supabase/models/item';
-import ListEditTitleBar from './ListEditTitleBar';
 import CreateButton from '../../../components/Button/CreateButton';
 import Position from '../../../components/Position/Position';
 import NotFound from '../../../layouts/NotFound';
@@ -16,6 +15,9 @@ import useItemQuery from '../../../hooks/item/useItemQuery.jsx';
 import InternalError from '../../../layouts/InternalError.jsx';
 import useItemDeleteById from '../../../hooks/item/useItemDeleteById.jsx';
 import useItemInsertOrUpdateById from '../../../hooks/item/useInsertOrUpdateById.jsx';
+import Routes from '../../../constants/routes.js';
+import TitleBar from '../../../components/TitleBar/TitleBar.jsx';
+import styles from './ListEdit.module.scss';
 
 const ListEdit = () => {
     const t = useTranslation();
@@ -45,9 +47,13 @@ const ListEdit = () => {
 
     return (
         <DefaultLayout>
-            <ListEditTitleBar
-                title={list?.title}
-            />
+            <TitleBar
+                backUrl={Routes.INDEX}
+            >
+                <h1 className={styles.title}>
+                    {list?.title}
+                </h1>
+            </TitleBar>
             <CardList flipKey={JSON.stringify(items)}>
                 {items.map((item) => {
                     return (
