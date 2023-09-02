@@ -12,7 +12,6 @@ const TextInputWrapper = ({placeholder, value, onChange, autoFocus, onSubmit}) =
             autoFocus={autoFocus}
             className={styles.input}
             onSubmit={onSubmit}
-            enterKeyHint="go"
         />
     );
 };
