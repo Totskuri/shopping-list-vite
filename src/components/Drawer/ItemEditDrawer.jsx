@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Label} from 'tyylisivu-components';
 import EditDrawer from './EditDrawer.jsx';
@@ -11,9 +11,12 @@ import NumberInputWrapper from '../Input/NumberInputWrapper.jsx';
 import TextareaWrapper from '../Input/TextareaWrapper.jsx';
 import useTranslation from '../../hooks/useTranslation.jsx';
 import useItemInsertOrUpdateById from '../../hooks/item/useInsertOrUpdateById.jsx';
+import Padding from '../Padding/Padding.jsx';
+import EditDrawerActionBar from './EditDrawerActionBar.jsx';
 
 const ItemEditDrawer = ({item, handleClose}) => {
     const t = useTranslation();
+    const actionBarRef = useRef(null);
     const {mutate, isLoading, isSuccess} = useItemInsertOrUpdateById();
     const [localItem, setLocalItem] = useState(item);
 
@@ -38,6 +41,12 @@ const ItemEditDrawer = ({item, handleClose}) => {
         mutate(localItem);
     };
 
+    const lastInputFocused = () => {
+        if (actionBarRef.current) {
+            actionBarRef.current.scrollIntoView();
+        }
+    };
+
     useEffect(() => {
         if (isSuccess) {
             handleClose();
@@ -48,10 +57,8 @@ const ItemEditDrawer = ({item, handleClose}) => {
         <EditDrawer
             isOpen={localItem !== null}
             handleClose={handleClose}
-            handleSave={onSave}
-            isLoading={isLoading}
         >
-            <>
+            <Padding>
                 <Label
                     text={t('Title')}
                 >
@@ -81,9 +88,16 @@ const ItemEditDrawer = ({item, handleClose}) => {
                         placeholder={t('Enter description')}
                         value={localItem?.description || ''}
                         onChange={(val) => setLocalItem(StateUtil.produceObject(localItem, 'description', val))}
+                        onFocus={lastInputFocused}
                     />
                 </Label>
-            </>
+            </Padding>
+            <EditDrawerActionBar
+                innerRef={actionBarRef}
+                handleSave={onSave}
+                handleClose={handleClose}
+                isLoading={isLoading}
+            />
         </EditDrawer>
     );
 };

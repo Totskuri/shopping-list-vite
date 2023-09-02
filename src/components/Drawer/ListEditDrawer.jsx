@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Label} from 'tyylisivu-components';
 import EditDrawer from './EditDrawer.jsx';
@@ -8,9 +8,12 @@ import TextInputWrapper from '../Input/TextInputWrapper.jsx';
 import ToastUtil from '../../utils/ToastUtil.jsx';
 import useTranslation from '../../hooks/useTranslation.jsx';
 import useListInsertOrUpdateById from '../../hooks/list/useListInsertOrUpdateById.jsx';
+import Padding from '../Padding/Padding.jsx';
+import EditDrawerActionBar from './EditDrawerActionBar.jsx';
 
 const ListEditDrawer = ({list, handleClose}) => {
     const t = useTranslation();
+    const actionBarRef = useRef(null);
     const {mutate, isLoading, isSuccess} = useListInsertOrUpdateById();
     const [localList, setLocalList] = useState(list);
 
@@ -35,6 +38,12 @@ const ListEditDrawer = ({list, handleClose}) => {
         mutate(localList);
     };
 
+    const lastInputFocused = () => {
+        if (actionBarRef.current) {
+            actionBarRef.current.scrollIntoView();
+        }
+    };
+
     useEffect(() => {
         if (isSuccess) {
             handleClose();
@@ -45,22 +54,29 @@ const ListEditDrawer = ({list, handleClose}) => {
         <EditDrawer
             isOpen={localList !== null}
             handleClose={handleClose}
-            handleSave={onSave}
-            isLoading={isLoading}
         >
-            <Label
-                text={t('Title')}
-            >
-                {localList && ( // autofocus fix
-                    <TextInputWrapper
-                        placeholder={t('Enter title')}
-                        value={localList?.title || ''}
-                        onChange={(val) => setLocalList(StateUtil.produceObject(localList, 'title', val))}
-                        onSubmit={onSave}
-                        autoFocus
-                    />
-                )}
-            </Label>
+            <Padding>
+                <Label
+                    text={t('Title')}
+                >
+                    {localList && ( // autofocus fix
+                        <TextInputWrapper
+                            placeholder={t('Enter title')}
+                            value={localList?.title || ''}
+                            onChange={(val) => setLocalList(StateUtil.produceObject(localList, 'title', val))}
+                            onSubmit={onSave}
+                            onFocus={lastInputFocused}
+                            autoFocus
+                        />
+                    )}
+                </Label>
+            </Padding>
+            <EditDrawerActionBar
+                innerRef={actionBarRef}
+                handleSave={onSave}
+                handleClose={handleClose}
+                isLoading={isLoading}
+            />
         </EditDrawer>
     );
 };
