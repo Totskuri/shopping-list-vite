@@ -1,7 +1,6 @@
 # shopping-list-vite
 
 To-do:
-- Add client state for checkbox/delete? Feels sluggish.
 - Check RLS policies
 - Add support for sharing lists
 - Add support for realtime polling (shared lists)

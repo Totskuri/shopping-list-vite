@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card.jsx';
 import {Checkbox} from 'tyylisivu-components';
@@ -11,6 +11,19 @@ import useTranslation from '../../../hooks/useTranslation.jsx';
 
 const ItemCard = ({item, isEditMode, toggleEditMode, onChangeStatus, onDelete}) => {
     const t = useTranslation();
+    const [isChecked, setIsChecked] = useState(item.status === ITEM_STATUS_CHECKED);
+
+    const updateIsChecked = (val) => {
+        if (val !== isChecked) {
+            setIsChecked(val);
+        }
+    };
+
+    useEffect(() => {
+        const val = item.status === ITEM_STATUS_CHECKED;
+        updateIsChecked(val);
+    }, [item.status]);
+
     return (
         <Card flipId={item.id}>
             <Flex alignItems="center">
@@ -18,8 +31,11 @@ const ItemCard = ({item, isEditMode, toggleEditMode, onChangeStatus, onDelete}) 
                     <div className={styles.checkboxContainer}>
                         <Checkbox
                             className={styles.checkbox}
-                            checked={item.status === ITEM_STATUS_CHECKED}
-                            onChange={(val) => onChangeStatus(val)}
+                            checked={isChecked}
+                            onChange={(val) => {
+                                updateIsChecked(val);
+                                onChangeStatus(val);
+                            }}
                         />
                     </div>
                 </label>
