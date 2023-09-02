@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {TextInput} from 'tyylisivu-components';
 import styles from './Input.module.scss';
 
-const TextInputWrapper = ({placeholder, value, onChange, autoFocus, onSubmit, onFocus}) => {
+const TextInputWrapper = ({placeholder, value, onChange, autoFocus, onSubmit}) => {
     return (
         <TextInput
             placeholder={placeholder}
@@ -12,7 +12,6 @@ const TextInputWrapper = ({placeholder, value, onChange, autoFocus, onSubmit, on
             autoFocus={autoFocus}
             className={styles.input}
             onSubmit={onSubmit}
-            onFocus={onFocus}
         />
     );
 };
@@ -23,7 +22,6 @@ TextInputWrapper.propTypes = {
     onChange: PropTypes.func.isRequired,
     autoFocus: PropTypes.bool,
     onSubmit: PropTypes.func,
-    onFocus: PropTypes.func,
 };
 
 TextInputWrapper.defaultProps = {
@@ -31,7 +29,6 @@ TextInputWrapper.defaultProps = {
     value: '',
     autoFocus: false,
     onSubmit: () => {},
-    onFocus: () => {},
 };
 
 export default TextInputWrapper;

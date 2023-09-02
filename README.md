@@ -11,5 +11,4 @@ To-do:
 - Get domain
 - Add favicon and basic seo elements
 - Create info page
-- When editing last input of form -> scroll buttons into view
 - Release 1.0
