@@ -14,6 +14,7 @@ const NumberInputWrapper = ({value, onChange, readOnly, autoFocus, min, max, onS
             min={min}
             max={max}
             onSubmit={onSubmit}
+            enterKeyHint="done"
         />
     );
 };
