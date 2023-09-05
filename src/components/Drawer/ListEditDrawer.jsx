@@ -12,7 +12,7 @@ import useListInsertOrUpdateById from '../../hooks/list/useListInsertOrUpdateByI
 const ListEditDrawer = ({list, handleClose}) => {
     const t = useTranslation();
     const {mutate, isLoading, isSuccess} = useListInsertOrUpdateById();
-    const [localList, setLocalList] = useState(list);
+    const [localList, setLocalList] = useState(null);
 
     const validate = () => {
         if (!localList?.title) {
@@ -34,6 +34,12 @@ const ListEditDrawer = ({list, handleClose}) => {
         }
         mutate(localList);
     };
+
+    useEffect(() => {
+        if (list !== localList) {
+            setLocalList(list);
+        }
+    }, [list]);
 
     useEffect(() => {
         if (isSuccess) {

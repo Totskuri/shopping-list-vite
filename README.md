@@ -5,7 +5,6 @@ To-do:
 - Add support for sharing lists
 - Add support for realtime polling (shared lists)
 - Create logo and redesign ui elements
-- Add backdrop and animation for drawer
 - Move delete behind edit (or have edit and delete in menu)
 - Get domain
 - Add favicon and basic seo elements

@@ -77,12 +77,10 @@ const ListEdit = () => {
                     onClick={() => setEditItem(Item.getEmptyItem(list.id))}
                 />
             </Position>
-            {editItem && (
-                <ItemEditDrawer
-                    item={editItem}
-                    handleClose={() => setEditItem(null)}
-                />
-            )}
+            <ItemEditDrawer
+                item={editItem}
+                handleClose={() => setEditItem(null)}
+            />
         </DefaultLayout>
     );
 };

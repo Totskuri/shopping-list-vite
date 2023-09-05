@@ -15,7 +15,7 @@ import useItemInsertOrUpdateById from '../../hooks/item/useInsertOrUpdateById.js
 const ItemEditDrawer = ({item, handleClose}) => {
     const t = useTranslation();
     const {mutate, isLoading, isSuccess} = useItemInsertOrUpdateById();
-    const [localItem, setLocalItem] = useState(item);
+    const [localItem, setLocalItem] = useState(null);
 
     const validate = () => {
         if (!localItem?.title) {
@@ -37,6 +37,12 @@ const ItemEditDrawer = ({item, handleClose}) => {
         }
         mutate(localItem);
     };
+
+    useEffect(() => {
+        if (item !== localItem) {
+            setLocalItem(item);
+        }
+    }, [item]);
 
     useEffect(() => {
         if (isSuccess) {
