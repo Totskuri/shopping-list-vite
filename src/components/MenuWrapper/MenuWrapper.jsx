@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 import {Menu, MenuItem} from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/core.css';
 import styles from './MenuWrapper.module.scss';
-import Spinner from '../Spinner/Spinner.jsx';
 import {MoreVertical} from 'react-feather';
 
-const MenuWrapper = ({isActionInProgress, actions}) => {
+const MenuWrapper = ({actions}) => {
     const menuClassName = ({ state }) =>
         state === 'opening'
             ? styles.menuOpening
@@ -21,7 +20,7 @@ const MenuWrapper = ({isActionInProgress, actions}) => {
                 ? styles.menuItemHover
                 : styles.menuItem;
 
-    const renderActions = () => {
+    const menuActions = useMemo(() => {
         const render = [];
         actions.forEach((action) => {
             const {text, onClick} = action;
@@ -37,19 +36,23 @@ const MenuWrapper = ({isActionInProgress, actions}) => {
             );
         });
         return render;
-    };
+    }, [actions]);
 
     return (
         <Menu
             transition
             menuClassName={menuClassName}
+            boundingBoxPadding="15"
             menuButton={
-                <button type="button" className={styles.menuButton}>
-                    {isActionInProgress ? <Spinner isDark /> : <MoreVertical />}
+                <button
+                    type="button"
+                    className={styles.menuButton}
+                >
+                    <MoreVertical />
                 </button>
             }
         >
-            {renderActions()}
+            {menuActions}
         </Menu>
     );
 };
@@ -59,12 +62,10 @@ MenuWrapper.propTypes = {
         text: PropTypes.string,
         onClick: PropTypes.func,
     })),
-    isActionInProgress: PropTypes.bool,
 };
 
 MenuWrapper.defaultProps = {
     actions: [],
-    isActionInProgress: false,
 };
 
 export default MenuWrapper;

@@ -4,14 +4,30 @@ import Card from '../Card.jsx';
 import {Checkbox} from 'tyylisivu-components';
 import {ITEM_PROPS, ITEM_STATUS_CHECKED} from '../../../supabase/models/item.js';
 import styles from './ItemCard.module.scss';
-import IconButton from '../../Button/IconButton.jsx';
-import {Edit, Trash2} from 'react-feather';
 import Flex from '../../Flex/Flex.jsx';
 import useTranslation from '../../../hooks/useTranslation.jsx';
+import MenuWrapper from '../../MenuWrapper/MenuWrapper.jsx';
 
-const ItemCard = ({item, isEditMode, toggleEditMode, onChangeStatus, onDelete}) => {
+const ItemCard = ({item, toggleEditMode, onChangeStatus, onDelete}) => {
     const t = useTranslation();
     const [isChecked, setIsChecked] = useState(item.status === ITEM_STATUS_CHECKED);
+
+    const getMenuActions = () => {
+        return [
+            {
+                text: t('Edit'),
+                onClick: () => toggleEditMode(true)
+            },
+            {
+                text: t('Delete'),
+                onClick: () => {
+                    if (window.confirm(`${t('Delete')} ${item.title}?`)) {
+                        onDelete();
+                    }
+                }
+            }
+        ];
+    };
 
     const updateIsChecked = (val) => {
         if (val !== isChecked) {
@@ -45,22 +61,9 @@ const ItemCard = ({item, isEditMode, toggleEditMode, onChangeStatus, onDelete}) 
                         <span className={styles.title}>
                             {item.total}
                         </span>
-                        <IconButton
-                            onClick={() => toggleEditMode(true)}
-                            disabled={isEditMode}
-                        >
-                            <Edit />
-                        </IconButton>
-                        <IconButton
-                            onClick={() => {
-                                if (window.confirm(`${t('Delete')} ${item.title}?`)) {
-                                    onDelete();
-                                }
-                            }}
-                            disabled={isEditMode}
-                        >
-                            <Trash2 />
-                        </IconButton>
+                        <MenuWrapper
+                            actions={getMenuActions()}
+                        />
                     </Flex>
                 </div>
             </Flex>
@@ -70,7 +73,6 @@ const ItemCard = ({item, isEditMode, toggleEditMode, onChangeStatus, onDelete}) 
 
 ItemCard.propTypes = {
     item: ITEM_PROPS,
-    isEditMode: PropTypes.bool,
     toggleEditMode: PropTypes.func.isRequired,
     onChangeStatus: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -78,7 +80,6 @@ ItemCard.propTypes = {
 
 ItemCard.defaultProps = {
     item: {},
-    isEditMode: false,
 };
 
 export default ItemCard;

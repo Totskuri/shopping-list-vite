@@ -46,7 +46,6 @@ const Index = () => {
                     return (
                         <ListCard
                             key={list.id}
-                            isEditMode={list.id === editList?.id}
                             list={list}
                             toggleEditMode={() => setEditList(list)}
                             onDelete={() => deleteList(list.id)}

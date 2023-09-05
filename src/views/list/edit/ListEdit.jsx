@@ -60,7 +60,6 @@ const ListEdit = () => {
                         <ItemCard
                             key={item.id}
                             item={item}
-                            isEditMode={item.id === editItem?.id}
                             toggleEditMode={() => setEditItem(item)}
                             onDelete={() => deleteItem(item.id)}
                             onChangeStatus={(val) => updateItemStatus(item.id, val)}
